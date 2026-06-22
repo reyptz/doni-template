@@ -107,7 +107,7 @@ export default function Catalogue() {
                   </div>
                   <div className="flex items-center justify-between border-t border-border px-5 py-3.5">
                     <div className={`font-heading ${course.price === 'Gratuit' ? 'text-sm font-bold text-teal' : 'text-lg font-black text-ink'}`}>{course.price}</div>
-                    <Link href={`/cours/${course.id}/apprendre`} className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ink/80 flex items-center gap-2">
+                    <Link href={`/cours/${course.id}`} className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ink/80 flex items-center gap-2">
                       <PlayCircle size={16} /> Suivre
                     </Link>
                   </div>

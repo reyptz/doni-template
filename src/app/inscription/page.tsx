@@ -91,13 +91,13 @@ export default function Inscription() {
               />
               <label htmlFor="terms" className="ml-2 block text-sm text-ink cursor-pointer">
                 J'accepte les{" "}
-                <a href="#" className="font-semibold text-coral hover:text-red-500">
+                <Link href="/cgu" className="font-semibold text-coral hover:text-red-500">
                   Conditions d'utilisation
-                </a>{" "}
+                </Link>{" "}
                 et la{" "}
-                <a href="#" className="font-semibold text-coral hover:text-red-500">
-                  Politique de confidentialité
-                </a>.
+                <Link href="/confidentialite" className="font-semibold text-coral hover:text-red-500">
+                  Politique de confidentialite
+                </Link>.
               </label>
             </div>
 

@@ -98,6 +98,7 @@ const footerColumns = [
       { label: "Politique de confidentialite", href: "/confidentialite" },
       { label: "Conditions d'utilisation", href: "/cgu" },
       { label: "Accessibilite", href: "/accessibilite" },
+      { label: "FAQ", href: "/faq" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -230,6 +231,14 @@ export default function Footer() {
                 className="text-xs text-cream/35 transition-colors hover:text-cream/60"
               >
                 Accessibilite
+              </Link>
+              <span className="text-cream/15" aria-hidden="true">|</span>
+              <Link
+                id="footer-bottom-faq"
+                href="/faq"
+                className="text-xs text-cream/35 transition-colors hover:text-cream/60"
+              >
+                FAQ
               </Link>
             </div>
           </div>

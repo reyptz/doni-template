@@ -75,9 +75,9 @@ export default function Connexion() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-semibold text-coral hover:text-red-500 transition-colors">
-                  Mot de passe oublié ?
-                </a>
+                <Link href="/mot-de-passe-oublie" className="font-semibold text-coral hover:text-red-500 transition-colors">
+                  Mot de passe oublie ?
+                </Link>
               </div>
             </div>
 
