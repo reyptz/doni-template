@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Accessibility } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Declaration d'accessibilite — Dɔni",
@@ -13,7 +11,7 @@ export const metadata: Metadata = {
 export default function AccessibilitePage() {
   return (
     <>
-      <main
+      <div
         id="accessibilite-main"
         className="flex-1 bg-[#f7f4ef]"
       >
@@ -418,7 +416,7 @@ export default function AccessibilitePage() {
             </p>
           </div>
         </article>
-      </main>
+      </div>
     </>
   );
 }

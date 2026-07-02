@@ -49,7 +49,7 @@ export default function DevenirFormateurPage() {
               <p className="uppercase tracking-[0.2em] text-sm font-semibold">Votre impact</p>
             </div>
             <p className="mb-6 leading-relaxed text-white/70">
-              En rejoignant Doni comme formateur, vous contribuez à former des talents capables de résoudre des défis réels. Vous partagez votre savoir-faire et influencez les pratiques professionnelles de demain.
+              En rejoignant Dɔni comme formateur, vous contribuez à former des talents capables de résoudre des défis réels. Vous partagez votre savoir-faire et influencez les pratiques professionnelles de demain.
             </p>
             <div className="rounded-3xl bg-white/10 p-5 text-sm">
               <p className="font-semibold text-white">Exemples de profils recherchés :</p>

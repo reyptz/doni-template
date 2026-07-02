@@ -3,6 +3,7 @@ import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ToastProvider from "@/components/ToastProvider";
 
 /* ----------------------------------------------------------------
    Polices — chargement optimise via next/font
@@ -69,6 +70,7 @@ export default function RootLayout({
         <Header />
         <main id="contenu-principal">{children}</main>
         <Footer />
+        <ToastProvider />
       </body>
     </html>
   );

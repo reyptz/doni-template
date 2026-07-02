@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Menu, X, User, LogOut } from "lucide-react";
+import { useDoniUser, clearDoniUser } from "@/lib/session";
+import { logout } from "@/lib/api";
 
 /* ----------------------------------------------------------------
    Donnees de navigation
@@ -23,6 +26,21 @@ const navLinks = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const user = useDoniUser();
+  const router = useRouter();
+
+  useEffect(() => setMounted(true), []);
+
+  const isStaff = user?.role === "ADMIN" || user?.role === "FORMATEUR" || user?.role === "INSTRUCTOR";
+  const dashboardHref = isStaff ? "/admin" : "/profil";
+  const dashboardLabel = isStaff ? "Dashboard" : "Mon espace";
+
+  async function handleLogout() {
+    await logout();
+    clearDoniUser();
+    router.replace("/");
+  }
 
   /* Detection du defilement */
   useEffect(() => {
@@ -94,20 +112,43 @@ export default function Header() {
 
           {/* ---- Actions desktop ---- */}
           <div id="header-actions" className="hidden lg:flex items-center gap-3">
-            <Link
-              id="btn-connexion"
-              href="/connexion"
-              className="px-4 py-2 text-sm font-medium text-ink/80 rounded-lg transition-all duration-200 hover:text-ink hover:bg-ink/[0.04]"
-            >
-              Se connecter
-            </Link>
-            <Link
-              id="btn-inscription"
-              href="/inscription"
-              className="inline-flex items-center px-5 py-2.5 text-sm font-semibold text-ink bg-gold rounded-lg shadow-sm transition-all duration-200 hover:bg-gold/90 hover:shadow-medium active:scale-[0.98]"
-            >
-              Commencer gratuitement
-            </Link>
+            {mounted && user ? (
+              <>
+                <Link
+                  id="btn-dashboard"
+                  href={dashboardHref}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-ink/80 rounded-lg transition-all duration-200 hover:text-ink hover:bg-ink/[0.04]"
+                >
+                  <User size={16} />
+                  {dashboardLabel}
+                </Link>
+                <button
+                  id="btn-deconnexion"
+                  onClick={handleLogout}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-coral rounded-lg transition-all duration-200 hover:bg-coral/10"
+                >
+                  <LogOut size={16} />
+                  Déconnexion
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  id="btn-connexion"
+                  href="/connexion"
+                  className="px-4 py-2 text-sm font-medium text-ink/80 rounded-lg transition-all duration-200 hover:text-ink hover:bg-ink/[0.04]"
+                >
+                  Se connecter
+                </Link>
+                <Link
+                  id="btn-inscription"
+                  href="/inscription"
+                  className="inline-flex items-center px-5 py-2.5 text-sm font-semibold text-ink bg-gold rounded-lg shadow-sm transition-all duration-200 hover:bg-gold/90 hover:shadow-medium active:scale-[0.98]"
+                >
+                  Commencer gratuitement
+                </Link>
+              </>
+            )}
           </div>
 
           {/* ---- Bouton menu mobile ---- */}
@@ -159,22 +200,49 @@ export default function Header() {
           <div className="my-4 border-t border-border" aria-hidden="true" />
 
           {/* Actions mobile */}
-          <Link
-            id="mobile-btn-connexion"
-            href="/connexion"
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center justify-center px-4 py-3 text-base font-medium text-ink/80 rounded-xl border border-border transition-colors hover:bg-ink/[0.04]"
-          >
-            Se connecter
-          </Link>
-          <Link
-            id="mobile-btn-inscription"
-            href="/inscription"
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center justify-center px-4 py-3.5 text-base font-semibold text-ink bg-gold rounded-xl shadow-sm transition-all duration-200 hover:bg-gold/90 active:scale-[0.98]"
-          >
-            Commencer gratuitement
-          </Link>
+          {mounted && user ? (
+            <>
+              <Link
+                id="mobile-btn-dashboard"
+                href={dashboardHref}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-2 px-4 py-3.5 text-base font-semibold text-ink bg-gold rounded-xl shadow-sm transition-all duration-200 hover:bg-gold/90 active:scale-[0.98]"
+              >
+                <User size={18} />
+                {dashboardLabel}
+              </Link>
+              <button
+                id="mobile-btn-deconnexion"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleLogout();
+                }}
+                className="flex items-center justify-center gap-2 px-4 py-3 text-base font-medium text-coral rounded-xl border border-border transition-colors hover:bg-coral/10"
+              >
+                <LogOut size={18} />
+                Déconnexion
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                id="mobile-btn-connexion"
+                href="/connexion"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center px-4 py-3 text-base font-medium text-ink/80 rounded-xl border border-border transition-colors hover:bg-ink/[0.04]"
+              >
+                Se connecter
+              </Link>
+              <Link
+                id="mobile-btn-inscription"
+                href="/inscription"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center px-4 py-3.5 text-base font-semibold text-ink bg-gold rounded-xl shadow-sm transition-all duration-200 hover:bg-gold/90 active:scale-[0.98]"
+              >
+                Commencer gratuitement
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>

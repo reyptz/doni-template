@@ -2,23 +2,36 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Mail, ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Mail, ArrowLeft, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { elearningApi } from "@/lib/api";
 
 export default function MotDePasseOublie() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
     if (!email || !email.includes("@")) {
       setError("Veuillez saisir une adresse email valide.");
       return;
     }
-
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      await elearningApi.post("/auth/forgot-password", { email });
+      setSubmitted(true);
+      setTimeout(() => {
+        router.push(`/reinitialiser-mot-de-passe?identifier=${encodeURIComponent(email)}`);
+      }, 2000);
+    } catch (err: any) {
+      setError(err?.message || "Erreur lors de l'envoi.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,18 +51,12 @@ export default function MotDePasseOublie() {
           {!submitted ? (
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-ink"
-                >
+                <label htmlFor="email" className="block text-sm font-medium text-ink">
                   Adresse email
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail
-                      className="h-5 w-5 text-muted"
-                      aria-hidden="true"
-                    />
+                    <Mail className="h-5 w-5 text-muted" aria-hidden="true" />
                   </div>
                   <input
                     id="email"
@@ -67,10 +74,7 @@ export default function MotDePasseOublie() {
 
               {error && (
                 <div className="rounded-xl bg-coral/10 border border-coral/20 p-3 flex items-start gap-3">
-                  <AlertCircle
-                    size={18}
-                    className="text-coral shrink-0 mt-0.5"
-                  />
+                  <AlertCircle size={18} className="text-coral shrink-0 mt-0.5" />
                   <p className="text-sm text-coral">{error}</p>
                 </div>
               )}
@@ -78,9 +82,10 @@ export default function MotDePasseOublie() {
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-ink hover:bg-ink/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ink transition-all active:scale-[0.98]"
+                  disabled={loading}
+                  className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-ink hover:bg-ink/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ink transition-all active:scale-[0.98] disabled:opacity-60"
                 >
-                  Envoyer le lien de reinitialisation
+                  {loading ? <><Loader2 size={16} className="animate-spin" /> Envoi…</> : "Envoyer le lien de reinitialisation"}
                 </button>
               </div>
             </form>
@@ -89,23 +94,17 @@ export default function MotDePasseOublie() {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-teal/10">
                 <CheckCircle2 size={28} className="text-teal" />
               </div>
-              <h3 className="font-heading text-lg font-bold text-ink">
-                Email envoye
-              </h3>
+              <h3 className="font-heading text-lg font-bold text-ink">Email envoye</h3>
               <p className="mt-2 text-sm text-muted">
                 Si un compte est associe a{" "}
                 <span className="font-semibold text-ink">{email}</span>, vous
-                recevrez un lien de reinitialisation sous peu. Ce lien est
-                valable pendant 30 minutes.
+                recevrez un lien de reinitialisation sous peu.
               </p>
             </div>
           )}
 
           <div className="mt-6 text-center">
-            <Link
-              href="/connexion"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-gold hover:text-ink transition-colors"
-            >
+            <Link href="/connexion" className="inline-flex items-center gap-1.5 text-sm font-medium text-gold hover:text-ink transition-colors">
               <ArrowLeft size={16} />
               Retour a la connexion
             </Link>

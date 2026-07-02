@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Award, CheckCircle, ShieldCheck, Star, Trophy } from "lucide-react";
+import { Award, CheckCircle, ShieldCheck, Star } from "lucide-react";
 
 export const metadata = {
   title: "Certifications reconnues | Dɔni",

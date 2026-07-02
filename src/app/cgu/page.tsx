@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, FileText } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Conditions generales d'utilisation — Dɔni",
@@ -13,7 +11,7 @@ export const metadata: Metadata = {
 export default function CGUPage() {
   return (
     <>
-      <main
+      <div
         id="cgu-main"
         className="flex-1 bg-[#f7f4ef]"
       >
@@ -377,7 +375,7 @@ export default function CGUPage() {
             </p>
           </div>
         </article>
-      </main>
+      </div>
     </>
   );
 }

@@ -1,44 +1,55 @@
-import Link from "next/link";
-import { Award, BookOpen, Globe, Heart, Users } from "lucide-react";
+"use client";
 
-export const metadata = {
-  title: "Formateurs experts | Dɔni",
-  description:
-    "Rencontrez nos formateurs professionnels, mentors actifs et experts reconnus qui vous accompagnent tout au long de votre apprentissage.",
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Award, BookOpen, Globe, Heart, Users, Check } from "lucide-react";
+import { elearningApi } from "@/lib/api";
+
+type Cours = {
+  id: number;
+  titre: string;
+  categorie?: string;
+  formateurNom?: string;
+  prix?: number;
 };
 
-const INSTRUCTORS = [
-  {
-    initials: "AB",
-    name: "Ahmed Benali",
-    specialty: "Intelligence Artificielle",
-    company: "MIT · Chercheur IA",
-    stats: "24k apprenants",
-  },
-  {
-    initials: "MD",
-    name: "Marie Dupont",
-    specialty: "Data Science",
-    company: "Datacamp · Data Engineer",
-    stats: "51k apprenants",
-  },
-  {
-    initials: "LM",
-    name: "Lucie Martin",
-    specialty: "Design UX/UI",
-    company: "Google · Lead Designer",
-    stats: "18k apprenants",
-  },
-  {
-    initials: "TL",
-    name: "Thomas Leroy",
-    specialty: "Cloud & DevOps",
-    company: "Amazon · Architecte Solutions",
-    stats: "37k apprenants",
-  },
-];
+function initials(name?: string): string {
+  return (name ?? "")
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
 
 export default function FormateursPage() {
+  const [cours, setCours] = useState<Cours[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    elearningApi
+      .get<Cours[]>("/cours")
+      .then(setCours)
+      .catch(() => setCours([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const instructors = Array.from(
+    new Set(cours.map((c) => c.formateurNom).filter((f): f is string => Boolean(f)))
+  ).slice(0, 8);
+
+  const instructorData = instructors.map((name) => {
+    const hisCourses = cours.filter((c) => c.formateurNom === name);
+    const categories = Array.from(
+      new Set(hisCourses.map((c) => c.categorie).filter((c): c is string => Boolean(c)))
+    );
+    return {
+      name,
+      count: hisCourses.length,
+      specialty: categories[0] ?? "Formateur Dɔni",
+    };
+  });
+
   return (
     <div className="min-h-screen bg-cream py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
@@ -50,29 +61,34 @@ export default function FormateursPage() {
             Des formateurs de classe mondiale pour accélérer votre carrière.
           </h1>
           <p className="text-lg leading-relaxed text-muted">
-            Chaque formateur combine expertise métier et pédagogie active pour vous aider à progresser rapidement et avec confiance.
+            Découvrez les formateurs réels qui publient des cours sur Dɔni. Chaque expert partage son savoir-faire à travers des formations concrètes.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {INSTRUCTORS.map((instructor) => (
-            <article key={instructor.name} className="rounded-[2rem] border border-border bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gold text-3xl font-black text-ink">
-                {instructor.initials}
-              </div>
-              <h2 className="mb-2 text-xl font-semibold text-ink">{instructor.name}</h2>
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-gold">{instructor.specialty}</p>
-              <p className="mb-5 text-sm leading-relaxed text-muted">{instructor.company}</p>
-              <p className="mb-6 text-sm font-semibold text-ink">{instructor.stats}</p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-cream transition hover:bg-ink/90"
-              >
-                Contacter
-              </Link>
-            </article>
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-sm text-muted">Chargement des formateurs…</div>
+        ) : instructorData.length === 0 ? (
+          <div className="text-sm text-muted">Aucun formateur disponible pour le moment.</div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {instructorData.map((instructor) => (
+              <article key={instructor.name} className="rounded-[2rem] border border-border bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gold text-3xl font-black text-ink">
+                  {initials(instructor.name)}
+                </div>
+                <h2 className="mb-2 text-xl font-semibold text-ink">{instructor.name}</h2>
+                <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-gold">{instructor.specialty}</p>
+                <p className="mb-6 text-sm font-semibold text-ink">{instructor.count} cours</p>
+                <Link
+                  href={`/catalogue?formateur=${encodeURIComponent(instructor.name)}`}
+                  className="inline-flex items-center justify-center rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-cream transition hover:bg-ink/90"
+                >
+                  Voir ses cours
+                </Link>
+              </article>
+            ))}
+          </div>
+        )}
 
         <section className="mt-16 grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="rounded-[2rem] bg-white p-10 shadow-sm">
@@ -95,11 +111,23 @@ export default function FormateursPage() {
               <Users size={24} />
               <p className="font-semibold uppercase tracking-[0.2em]">Ce que vous gagnez</p>
             </div>
-            <ul className="mt-8 space-y-5 text-sm leading-relaxed">
-              <li>✅ Accès direct à des experts du secteur.</li>
-              <li>✅ Conseils de carrière et portfolio professionnel.</li>
-              <li>✅ Méthodes pédagogiques adaptées à votre profil.</li>
-              <li>✅ Certification soutenue par des professionnels.</li>
+            <ul className="mt-8 space-y-5 text-sm leading-relaxed text-white/70">
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Accès direct à des experts du secteur.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Conseils de carrière et portfolio professionnel.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Méthodes pédagogiques adaptées à votre profil.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Certification soutenue par des professionnels.</span>
+              </li>
             </ul>
             <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-3 text-sm font-semibold">
               <Award size={20} /> Mentor sélectionné par nos partenaires.

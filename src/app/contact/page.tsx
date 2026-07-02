@@ -8,7 +8,6 @@ import {
   Clock,
   ChevronDown,
   Send,
-  Building2,
   CheckCircle,
   AlertCircle,
   Globe,
@@ -32,12 +31,12 @@ const SUBJECTS = [
 
 const FAQ_ITEMS = [
   {
-    question: 'Comment creer un compte sur la plateforme Doni ?',
+    question: 'Comment creer un compte sur la plateforme Dɔni ?',
     answer:
       'La creation de compte est gratuite et se fait en quelques etapes simples. Rendez-vous sur la page d\'inscription, renseignez vos informations personnelles, confirmez votre adresse e-mail et accedez immediatement a notre catalogue de formations gratuites.',
   },
   {
-    question: 'Les certifications Doni sont-elles reconnues ?',
+    question: 'Les certifications Dɔni sont-elles reconnues ?',
     answer:
       'Oui. Nos certifications sont reconnues par un reseau d\'entreprises et d\'institutions partenaires. Chaque certificat comporte un identifiant unique verifiable en ligne, garantissant son authenticite aupres des recruteurs et des employeurs.',
   },
@@ -52,7 +51,7 @@ const FAQ_ITEMS = [
       'Absolument. L\'ensemble de nos formations est disponible en acces asynchrone, ce qui signifie que vous pouvez progresser a votre rythme, selon vos disponibilites. Les contenus restent accessibles sans limite de temps apres l\'inscription.',
   },
   {
-    question: 'Comment devenir formateur sur Doni ?',
+    question: 'Comment devenir formateur sur Dɔni ?',
     answer:
       'Nous recherchons des experts motives et pedagogues. Soumettez votre candidature via le formulaire dedie sur notre site, accompagnee de votre curriculum vitae et d\'un plan de cours. Notre comite pedagogique evalue chaque candidature sous 10 jours ouvrables.',
   },
@@ -427,11 +426,11 @@ export default function ContactPage() {
                     <div>
                       <p className="font-semibold text-[#0d0d14] text-sm mb-1">Adresse</p>
                       <p className="text-sm text-gray-600 leading-relaxed">
-                        12 Avenue Cheikh Anta Diop
+                        ACI 2000
                         <br />
-                        Dakar, Senegal
+                        Bamako, Mali
                         <br />
-                        BP 15200
+                        BP 91096
                       </p>
                     </div>
                   </div>
@@ -442,8 +441,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-[#0d0d14] text-sm mb-1">Telephone</p>
-                      <p className="text-sm text-gray-600">+221 33 123 45 67</p>
-                      <p className="text-sm text-gray-600">+221 77 890 12 34</p>
+                      <p className="text-sm text-gray-600">+223 63 23 45 67</p>
+                      <p className="text-sm text-gray-600">+223 77 90 12 34</p>
                     </div>
                   </div>
 
@@ -492,7 +491,7 @@ export default function ContactPage() {
                     <span className="font-semibold text-[#e85d3a]">Ferme</span>
                   </div>
                   <p className="text-xs text-gray-400 pt-2 border-t border-gray-100">
-                    Fuseau horaire : GMT (Dakar)
+                    Fuseau horaire : GMT (Bamako)
                   </p>
                 </div>
               </div>
@@ -515,10 +514,10 @@ export default function ContactPage() {
                     <MapPin className="w-6 h-6 text-[#e85d3a]" />
                   </div>
                   <p className="text-sm font-semibold text-[#f7f4ef] mb-1">
-                    Siege social Doni
+                    Siege social Dɔni
                   </p>
                   <p className="text-xs text-gray-400">
-                    12 Avenue Cheikh Anta Diop, Dakar
+                    ACI 2000, Bamako
                   </p>
                   <a
                     id="link-map-external"
@@ -596,14 +595,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ---- Footer copyright ---- */}
-      <footer className="border-t border-gray-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-          <p className="text-sm text-gray-500">
-            &copy; 2026 Doni. Tous droits reserves. Plateforme de formation institutionnelle.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Scale } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Mentions legales — Dɔni",
@@ -13,7 +11,7 @@ export const metadata: Metadata = {
 export default function MentionsLegalesPage() {
   return (
     <>
-      <main
+      <div
         id="mentions-legales-main"
         className="flex-1 bg-[#f7f4ef]"
       >
@@ -320,7 +318,7 @@ export default function MentionsLegalesPage() {
             </p>
           </div>
         </article>
-      </main>
+      </div>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Briefcase, Flag, Layers, Monitor, Rocket } from "lucide-react";
+import { Flag, Layers, Monitor, Rocket, Check } from "lucide-react";
 
 export const metadata = {
   title: "Projets pratiques | Dɔni",
@@ -65,10 +65,22 @@ export default function ProjetsPage() {
           <div className="rounded-[2rem] bg-ink p-10 text-white shadow-xl">
             <h2 className="mb-6 text-3xl font-black">Pourquoi nos projets font la différence ?</h2>
             <ul className="space-y-5 text-sm leading-relaxed text-white/70">
-              <li>✅ Alignés sur des besoins de marché réels.</li>
-              <li>✅ Accompagnés par un coach formateur.</li>
-              <li>✅ Inclus des retours personnalisés.</li>
-              <li>✅ Livrables qualitatifs pour votre portfolio.</li>
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Alignés sur des besoins de marché réels.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Accompagnés par un coach formateur.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Inclus des retours personnalisés.</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Livrables qualitatifs pour votre portfolio.</span>
+              </li>
             </ul>
           </div>
 

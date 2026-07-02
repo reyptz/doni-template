@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Award, BarChart3, Cloud, LayoutList, Sparkles, Users } from "lucide-react";
+import { BarChart3, Cloud, LayoutList, Sparkles, Check } from "lucide-react";
 
 export const metadata = {
   title: "Parcours de formation | Dɔni",
@@ -75,10 +75,22 @@ export default function ParcoursPage() {
               Nos parcours sont construits autour d'objectifs clairs, de points de contrôle réguliers et d'un projet final destiné à renforcer votre portfolio.
             </p>
             <div className="space-y-4 text-sm text-white/70">
-              <p>✅ Évaluations personnalisées</p>
-              <p>✅ Soutien par un mentor dédié</p>
-              <p>✅ Projets concrets alignés aux attentes des recruteurs</p>
-              <p>✅ Certification reconnue en fin de parcours</p>
+              <p className="flex items-center gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0" />
+                <span>Évaluations personnalisées</span>
+              </p>
+              <p className="flex items-center gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0" />
+                <span>Soutien par un mentor dédié</span>
+              </p>
+              <p className="flex items-center gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0" />
+                <span>Projets concrets alignés aux attentes des recruteurs</span>
+              </p>
+              <p className="flex items-center gap-2.5">
+                <Check className="h-5 w-5 text-gold shrink-0" />
+                <span>Certification reconnue en fin de parcours</span>
+              </p>
             </div>
           </div>
 

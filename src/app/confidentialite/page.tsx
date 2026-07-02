@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Shield } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialite — Dɔni",
@@ -13,7 +11,7 @@ export const metadata: Metadata = {
 export default function ConfidentialitePage() {
   return (
     <>
-      <main
+      <div
         id="confidentialite-main"
         className="flex-1 bg-[#f7f4ef]"
       >
@@ -513,7 +511,7 @@ export default function ConfidentialitePage() {
             </p>
           </div>
         </article>
-      </main>
+      </div>
     </>
   );
 }

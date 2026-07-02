@@ -1,6 +1,12 @@
 import Link from "next/link";
+import type { SVGProps } from "react";
 
-function LinkedInIcon({ size = 17, strokeWidth = 1.8, ...props }: any) {
+type IconProps = SVGProps<SVGSVGElement> & {
+  size?: number;
+  strokeWidth?: number;
+};
+
+function LinkedInIcon({ size = 17, strokeWidth = 1.8, ...props }: IconProps) {
   return (
     <svg
       width={size}
@@ -23,7 +29,7 @@ function LinkedInIcon({ size = 17, strokeWidth = 1.8, ...props }: any) {
   );
 }
 
-function TwitterIcon({ size = 17, strokeWidth = 1.8, ...props }: any) {
+function TwitterIcon({ size = 17, strokeWidth = 1.8, ...props }: IconProps) {
   return (
     <svg
       width={size}
@@ -44,7 +50,7 @@ function TwitterIcon({ size = 17, strokeWidth = 1.8, ...props }: any) {
   );
 }
 
-function GitHubIcon({ size = 17, strokeWidth = 1.8, ...props }: any) {
+function GitHubIcon({ size = 17, strokeWidth = 1.8, ...props }: IconProps) {
   return (
     <svg
       width={size}

@@ -9,7 +9,6 @@ import {
   BookOpen,
   GraduationCap,
   Lightbulb,
-  Heart,
   ArrowRight,
   CheckCircle,
   Building2,
@@ -98,7 +97,7 @@ const TIMELINE = [
     year: '2019',
     title: 'La genese',
     description:
-      'Fondation de Doni a Dakar par une equipe de chercheurs et d\'entrepreneurs passionnes par l\'education numerique.',
+      'Fondation de Dɔni a Dakar par une equipe de chercheurs et d\'entrepreneurs passionnes par l\'education numerique.',
   },
   {
     year: '2020',
@@ -175,6 +174,25 @@ function useCountUp(target: number, duration = 2000) {
   return { count, ref };
 }
 
+function StatCounter({ stat, index }: { stat: typeof STATS[number]; index: number }) {
+  const { count, ref } = useCountUp(stat.value);
+  const IconComp = stat.icon;
+  return (
+    <div ref={ref} id={`stat-${index}`} className="text-center">
+      <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-5">
+        <IconComp className="w-8 h-8 text-[#e8a825]" />
+      </div>
+      <p className="text-4xl md:text-5xl font-bold text-[#f7f4ef] mb-2">
+        {count.toLocaleString('fr-FR')}
+        {stat.suffix}
+      </p>
+      <p className="text-sm text-gray-400 uppercase tracking-wider">
+        {stat.label}
+      </p>
+    </div>
+  );
+}
+
 /* -------------------------------------------------------------------------- */
 /*  Component                                                                 */
 /* -------------------------------------------------------------------------- */
@@ -202,7 +220,7 @@ export default function AProposPage() {
           <div className="text-center max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-8">
               <Building2 className="w-4 h-4 text-[#e8a825]" />
-              <span className="text-sm text-gray-300">A propos de Doni</span>
+              <span className="text-sm text-gray-300">A propos de Dɔni</span>
             </div>
             <h1
               id="hero-title"
@@ -213,7 +231,7 @@ export default function AProposPage() {
               <span className="text-[#e8a825]">l'acces au savoir</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Doni est ne de la conviction que chaque individu merite un acces egal a
+              Dɔni est ne de la conviction que chaque individu merite un acces egal a
               une education de qualite. Nous batissons la plateforme de formation de
               reference pour le continent africain et au-dela.
             </p>
@@ -237,7 +255,7 @@ export default function AProposPage() {
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-6">
                   Dans un monde en constante evolution, l'acces a des competences actualisees
-                  est un levier fondamental d'emancipation et de progres. Doni s'engage a
+                  est un levier fondamental d'emancipation et de progres. Dɔni s'engage a
                   offrir des formations de haut niveau, concues par des experts, accessibles
                   depuis n'importe quel point du globe.
                 </p>
@@ -251,7 +269,7 @@ export default function AProposPage() {
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
                 <blockquote className="text-lg text-[#0d0d14] leading-relaxed italic border-l-4 border-[#e8a825] pl-6">
                   "L'education est l'arme la plus puissante qu'on puisse utiliser pour
-                  changer le monde. Avec Doni, nous mettons cette arme entre les mains
+                  changer le monde. Avec Dɔni, nous mettons cette arme entre les mains
                   de chacun."
                 </blockquote>
                 <div className="mt-6 flex items-center gap-4">
@@ -260,7 +278,7 @@ export default function AProposPage() {
                   </div>
                   <div>
                     <p className="font-semibold text-[#0d0d14]">Dr. Amadou Diallo</p>
-                    <p className="text-sm text-gray-500">Cofondateur de Doni</p>
+                    <p className="text-sm text-gray-500">Cofondateur de Dɔni</p>
                   </div>
                 </div>
               </div>
@@ -323,29 +341,9 @@ export default function AProposPage() {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {STATS.map((stat, index) => {
-              const { count, ref } = useCountUp(stat.value);
-              const IconComp = stat.icon;
-              return (
-                <div
-                  key={index}
-                  ref={ref}
-                  id={`stat-${index}`}
-                  className="text-center"
-                >
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-5">
-                    <IconComp className="w-8 h-8 text-[#e8a825]" />
-                  </div>
-                  <p className="text-4xl md:text-5xl font-bold text-[#f7f4ef] mb-2">
-                    {count.toLocaleString('fr-FR')}
-                    {stat.suffix}
-                  </p>
-                  <p className="text-sm text-gray-400 uppercase tracking-wider">
-                    {stat.label}
-                  </p>
-                </div>
-              );
-            })}
+            {STATS.map((stat, index) => (
+              <StatCounter key={index} index={index} stat={stat} />
+            ))}
           </div>
         </div>
       </section>
@@ -490,11 +488,11 @@ export default function AProposPage() {
           <div className="max-w-3xl mx-auto text-center">
             <Lightbulb className="w-12 h-12 text-[#e8a825] mx-auto mb-6" />
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#f7f4ef] mb-6">
-              Rejoignez la communaute Doni
+              Rejoignez la communaute Dɔni
             </h2>
             <p className="text-lg text-gray-400 mb-10 leading-relaxed">
               Que vous soyez apprenant, formateur ou partenaire institutionnel,
-              decouvrez comment Doni peut vous accompagner dans votre parcours.
+              decouvrez comment Dɔni peut vous accompagner dans votre parcours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -518,14 +516,6 @@ export default function AProposPage() {
         </div>
       </section>
 
-      {/* ---- Footer copyright ---- */}
-      <footer className="border-t border-gray-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-          <p className="text-sm text-gray-500">
-            &copy; 2026 Doni. Tous droits reserves. Plateforme de formation institutionnelle.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

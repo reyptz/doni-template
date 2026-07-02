@@ -18,8 +18,8 @@
   --color-border: #e4e0d8;
 
   /* --- Typographie --- */
-  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-heading), "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: var(--font-body), "DM Sans", system-ui, -apple-system, sans-serif;
 
   /* --- Espacement personnalise --- */
   --spacing-18: 4.5rem;

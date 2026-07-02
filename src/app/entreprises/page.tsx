@@ -34,7 +34,7 @@ export default function EntreprisesPage() {
             Développez les compétences stratégiques de vos équipes.
           </h1>
           <p className="text-lg leading-relaxed text-muted">
-            Doni propose des parcours sur mesure, un accompagnement dédié et des indicateurs clairs pour former vos collaborateurs efficacement.
+            Dɔni propose des parcours sur mesure, un accompagnement dédié et des indicateurs clairs pour former vos collaborateurs efficacement.
           </p>
         </div>
 

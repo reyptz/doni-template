@@ -8,13 +8,12 @@ export const metadata = {
 };
 
 const PARTNERS = [
-  "Université Cheikh Anta Diop",
-  "Ecole Polytechnique de Dakar",
-  "Institut Pasteur",
+  "Université de Bamako",
   "Banque Mondiale",
   "UNESCO",
   "Microsoft Education",
   "Google for Education",
+  "AWS Education",
 ];
 
 export default function PartenariatsPage() {
@@ -61,7 +60,7 @@ export default function PartenariatsPage() {
               <p className="uppercase tracking-[0.2em] text-sm font-semibold">Nos engagements</p>
             </div>
             <p className="mb-6 leading-relaxed text-white/70">
-              Travailler avec Doni, c'est construire des synergies durables entre l'éducation, l'innovation et la responsabilité sociale.
+              Travailler avec Dɔni, c'est construire des synergies durables entre l'éducation, l'innovation et la responsabilité sociale.
             </p>
             <div className="space-y-4 text-sm text-white/80">
               <div className="rounded-3xl bg-white/10 p-5">Développement de programmes sur mesure.</div>
